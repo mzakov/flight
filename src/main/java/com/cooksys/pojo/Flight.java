@@ -1,6 +1,6 @@
 package com.cooksys.pojo;
 
-public class Flight {
+public class Flight{
 	
 	//Name of city where flight originates
 	private String origin;
@@ -45,7 +45,13 @@ public class Flight {
 		this.flightTime = flightTime;
 		this.offset = offset;
 	}
-	
-	
 
+	public Flight() {
+		// TODO Auto-generated constructor stub
+	}
+	public String toString(){
+		return "leaves " + this.origin + " at " + this.offset +
+				" and arrives in " + this.destination + " at " +
+				(this.offset+this.flightTime) + " flight time: " + this.flightTime;
+	}
 }
