@@ -5,8 +5,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.stereotype.Component;
 
+import com.cooksys.entity.Flight;
 import com.cooksys.pojo.Cities;
-import com.cooksys.pojo.Flight;
 
 @Component
 public class FlightGenerator {
@@ -15,7 +15,7 @@ public class FlightGenerator {
 		
 		ArrayList<Flight> result = new ArrayList<>();
 
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 10; i++) {
 
 			int originIndex = ThreadLocalRandom.current().nextInt(0, 4);
 

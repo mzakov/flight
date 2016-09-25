@@ -2,6 +2,7 @@ package com.cooksys.controller;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Set;
 
 import org.jgrapht.Graphs;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cooksys.pojo.Flight;
+import com.cooksys.entity.Flight;
 import com.cooksys.service.FlightService;
 import com.cooksys.service.LocationService;
 
@@ -41,7 +42,7 @@ public class FlightsController {
 	
 	//GET /flights/itin
 	@RequestMapping(path = "/itin/{origin}/{destination}", method = RequestMethod.GET)
-	public HashSet<ArrayList<Flight>> getItineraries(@PathVariable String origin, @PathVariable String destination )
+	public Set<ArrayList<Flight>> getItineraries(@PathVariable String origin, @PathVariable String destination )
 	{
 		return flightService.getItineraries(origin, destination);
 	}

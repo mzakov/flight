@@ -1,2 +1,96 @@
-<h1>An app will go here, eventually.</h1>
-<flight-map></flight-map>
+<div class="bigbox"ng-cloak layout="column" flex>
+  <md-toolbar>
+    <div layout="row" layout-align="center center" style="padding-top:20px;">
+      <md-button ng-show="ctrl.loggedIn" class="md-raised md-primary" ng-click ="ctrl.getProfile()">Profile</md-button>
+      <md-button class="md-raised md-primary" ng-hide="ctrl.loggedIn" ng-href= "#/login">LogIn / Register</md-button>
+      <md-button ng-show="ctrl.loggedIn" class="md-raised md-primary" ng-click ="ctrl.logout()">LogOut</md-button>
+    </div>
+  </md-toolbar>
+  <div>
+    <flight-map></flight-map>
+  </div>
+
+  <md-content class="md-padding">
+      <form ng-submit="$event.preventDefault()" name="searchForm">
+        <p>The following example demonstrates floating labels being used as a normal form element.</p>
+        <div layout-gt-sm="row">
+          <div>
+            <i style="display:inline-block;" class="material-icons">flight_takeoff</i>
+          </div>
+          <div>
+          <md-autocomplete flex="" required="" md-input-name="autocompleteField"
+              md-input-minlength="2" md-input-maxlength="18" md-no-cache="ctrl.noCache"
+              md-selected-item="ctrl.selectedOrigin" md-search-text="ctrl.searchTextOrigin"
+              md-items="item in ctrl.querySearch(ctrl.searchTextOrigin)" md-item-text="item.display"
+              md-require-match md-floating-label="From: e.g. Memphis">
+            <md-item-template>
+              <span md-highlight-text="ctrl.searchTextOrigin">{{item.display}}</span>
+            </md-item-template>
+            <div ng-messages="searchForm.autocompleteField.$error" ng-if="searchForm.autocompleteField.$touched">
+              <div ng-message="required">Please enter the city of departure.</div>
+              <div ng-message="md-require-match">Please select an existing city.</div>
+              <div ng-message="minlength">Your entry is not long enough.</div>
+              <div ng-message="maxlength">Your entry is too long.</div>
+            </div>
+          </md-autocomplete>
+          </div>
+          <div>
+            <i style="display:inline-block;" class="material-icons">flight_landing</i>
+          </div>
+          <div>
+          <md-autocomplete flex="" required="" md-input-name="autocompleteField"
+              md-input-minlength="2" md-input-maxlength="18" md-no-cache="ctrl.noCache"
+              md-selected-item="ctrl.selectedDestination" md-search-text="ctrl.searchTextDestination"
+              md-items="item in ctrl.querySearch(ctrl.searchTextDestination)" md-item-text="item.display"
+              md-require-match md-floating-label="To: e.g. Knoxville">
+            <md-item-template>
+              <span md-highlight-text="ctrl.searchTextDestination">{{item.display}}</span>
+            </md-item-template>
+            <div ng-messages="searchForm.autocompleteField.$error" ng-if="searchForm.autocompleteField.$touched">
+              <div ng-message="required">Please enter the city of arrival.</div>
+              <div ng-message="md-require-match">Please select an existing city.</div>
+              <div ng-message="minlength">Your entry is not long enough.</div>
+              <div ng-message="maxlength">Your entry is too long.</div>
+            </div>
+          </md-autocomplete>
+          </div>
+        </div>
+        <md-button ng-disabled="searchForm.$invalid" class="md-raised" ng-click="ctrl.getRoutes(ctrl.selectedOrigin, ctrl.selectedDestination)">Search</md-button>
+      </form>
+    </md-content>
+    <div class="routes" ng-show=true>
+    <md-list class="md-dense" flex>
+      <md-subheader class="md-no-sticky">Routes</md-subheader>
+      <md-list-item class="md-3-line" layout="row" layout-align="center center" ng-repeat="items in routes">
+        <div layout="column" layout-align="center center">
+          <div>
+        <i class="material-icons">card_travel</i>
+          </div>
+          <div>
+        <md-button ng-show="ctrl.loggedIn" ng-click="ctrl.book(items)">Book</mdd-button>
+        </div>
+        </div>
+        <md-list-item class="md-3-line" ng-repeat="item in items">
+          <div class="md-list-item-text" layout="column" layout-align="start">
+            <h3>From {{ item.origin }} to {{ item.destination }}</h3>
+            <h4>Takes off at: {{ item.offset }} and lands at: {{ item.flightTime + item.offset }}</h4>
+            <p>Flight time: {{ item.flightTime }}</p>
+          </div>
+        </md-list-item>
+      </md-list-item>
+    </md-list>
+    </div>
+  <div class="flights">
+  <md-list class="md-dense" flex>
+    <md-subheader class="md-no-sticky">Flights</md-subheader>
+    <md-list-item class="md-3-line" ng-repeat="item in flights">
+      <i class="material-icons">airplanemode_active</i>
+      <div class="md-list-item-text" layout="column">
+        <h3>From {{ item.origin }} to {{ item.destination }}</h3>
+        <h4>Takes off at: {{ item.offset }} and lands at: {{ item.flightTime + item.offset }}</h4>
+        <p>Flight time: {{ item.flightTime }}</p>
+      </div>
+    </md-list-item>
+  </md-list>
+</div>
+</div>
