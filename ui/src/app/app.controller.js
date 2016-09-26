@@ -4,7 +4,7 @@ export default
 class AppController {
 	constructor ($log, AppService, $scope, $timeout, $location, $state, $rootScope) {
   $log.debug('AppController instantiated!')
-
+	let ctrl = this
   this.loggedIn = AppService.loggedIn
   this.user = AppService.user
   this.users = []
@@ -28,7 +28,7 @@ class AppController {
     })
     $timeout(function () {
       $scope.reload()
-    }, 50000)
+    }, 5000)
   }
   $scope.reload()
 
@@ -60,12 +60,18 @@ class AppController {
     console.dir(this.user)
   }
 
-  this.getRoutes = function (origin, destination) {
-    AppService.getRoutes(origin, destination).then((result) => {
+  this.getRoutes = function () {
+    AppService.getRoutes(ctrl.selectedOrigin, ctrl.selectedDestination).then((result) => {
       $scope.routes = result.data
       console.dir(result.data)
     })
+		$timeout(function () {
+			ctrl.getRoutes(ctrl.selectedOrigin, ctrl.selectedDestination)
+		}, 5000)
   }
+
+
+
 //	Autocompele //////////////////////////////////////////////////////////
 
 // list of `state` value/display objects

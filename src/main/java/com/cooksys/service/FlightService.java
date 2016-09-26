@@ -10,6 +10,7 @@ import org.jgrapht.Graph;
 import org.jgrapht.GraphPath;
 import org.jgrapht.Graphs;
 import org.jgrapht.alg.AllDirectedPaths;
+import org.jgrapht.alg.DijkstraShortestPath;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.DirectedWeightedMultigraph;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class FlightService {
 	}
 	
 	//The fixedDelay parameter determines how often a new day is generated as expressed in milliseconds
-	@Scheduled(fixedDelay=5000)
+	@Scheduled(fixedDelay=10000)
 	private void refreshFlights()
 	{
 		flightList = generator.generateNewFlightList();
@@ -124,9 +125,9 @@ public class FlightService {
 				}
 			}
 			
-			System.out.println(all.getAllPaths(departure, destination, true, null));
+//			System.out.println(all.getAllPaths(departure, destination, true, null));
 			
-			return itineraries;  
+			  
 			
 			
 //			System.out.println(itineraries.toString());
@@ -134,6 +135,8 @@ public class FlightService {
 //          System.out.println(DijkstraShortestPath.findPathBetween(a, departure, destination));
 //          System.out.println("The total time of this journey is: "  + p.getPathLength());
 //			System.out.println(itineraries.toString());
+          
+          return itineraries;
 		    
     }
 	

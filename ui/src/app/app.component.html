@@ -10,7 +10,7 @@
     <flight-map></flight-map>
   </div>
 
-  <md-content class="md-padding">
+  <md-content class="md-padding"  ng-show="ctrl.loggedIn">
       <form ng-submit="$event.preventDefault()" name="searchForm">
         <h3>Search Flights</h3>
         <div layout-gt-sm="row">
@@ -55,11 +55,11 @@
           </md-autocomplete>
           </div>
         </div>
-        <md-button ng-disabled="searchForm.$invalid" class="md-raised" ng-click="ctrl.getRoutes(ctrl.selectedOrigin, ctrl.selectedDestination)">Search</md-button>
+        <md-button ng-disabled="searchForm.$invalid" class="md-raised" ng-click="ctrl.getRoutes()">Search</md-button>
       </form>
     </md-content>
     <div class="routes" ng-show=true>
-    <md-list class="md-dense" flex>
+    <md-list  ng-show="ctrl.loggedIn" class="md-dense" flex>
       <md-subheader class="md-no-sticky">Routes</md-subheader>
       <md-list-item class="md-3-line" layout="row" layout-align="center center" ng-repeat="items in routes">
         <div layout="column" layout-align="center center">
@@ -67,7 +67,7 @@
         <i class="material-icons">card_travel</i>
           </div>
           <div>
-        <md-button ng-show="ctrl.loggedIn" ng-click="ctrl.book(items)">Book</mdd-button>
+        <md-button ng-click="ctrl.book(items)">Book</mdd-button>
         </div>
         </div>
         <md-list-item class="md-3-line" ng-repeat="item in items">
