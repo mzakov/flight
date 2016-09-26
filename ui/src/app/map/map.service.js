@@ -1,3 +1,4 @@
+
 /* @ngInject */
 class MapService {
   constructor ($http, apiUrl) {

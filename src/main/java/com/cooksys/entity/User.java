@@ -2,6 +2,8 @@ package com.cooksys.entity;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+
 import javax.persistence.*;
 
 @Entity
@@ -35,7 +37,7 @@ public class User {
 	@Column
 	
 	@OneToMany(mappedBy = "user", fetch=FetchType.LAZY)
-	private List<Booking> bookings;
+	private Set<Booking> bookings;
 	
 	public Date getCreated() {
 		return created;
@@ -69,11 +71,11 @@ public class User {
 		this.password = password;
 	}
 
-	public List<Booking> getBookings() {
+	public Set<Booking> getBookings() {
 		return bookings;
 	}
 
-	public void setBookings(List<Booking> bookings) {
+	public void setBookings(Set<Booking> bookings) {
 		this.bookings = bookings;
 	}
 

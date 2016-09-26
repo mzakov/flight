@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "flights")
 public class Flight{
@@ -53,7 +55,8 @@ public class Flight{
 	@Column
 	private long offSet;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JsonIgnore
 	@JoinColumn(name="booking_id")
 	private Booking booking;
 	

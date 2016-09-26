@@ -12,7 +12,7 @@
 
   <md-content class="md-padding">
       <form ng-submit="$event.preventDefault()" name="searchForm">
-        <p>The following example demonstrates floating labels being used as a normal form element.</p>
+        <h3>Search Flights</h3>
         <div layout-gt-sm="row">
           <div>
             <i style="display:inline-block;" class="material-icons">flight_takeoff</i>
@@ -75,6 +75,10 @@
             <h3>From {{ item.origin }} to {{ item.destination }}</h3>
             <h4>Takes off at: {{ item.offset }} and lands at: {{ item.flightTime + item.offset }}</h4>
             <p>Flight time: {{ item.flightTime }}</p>
+            <div layout="row">
+            <i class="material-icons" ng-click="ctrl.drawPath(item)">location_on</i>
+            <i class="material-icons" ng-click="ctrl.clearPath(item)">location_off</i>
+          </div>
           </div>
         </md-list-item>
       </md-list-item>
@@ -85,10 +89,14 @@
     <md-subheader class="md-no-sticky">Flights</md-subheader>
     <md-list-item class="md-3-line" ng-repeat="item in flights">
       <i class="material-icons">airplanemode_active</i>
-      <div class="md-list-item-text" layout="column">
+      <div  class="md-list-item-text" layout="column">
         <h3>From {{ item.origin }} to {{ item.destination }}</h3>
         <h4>Takes off at: {{ item.offset }} and lands at: {{ item.flightTime + item.offset }}</h4>
         <p>Flight time: {{ item.flightTime }}</p>
+        <div layout="row">
+        <i class="material-icons" ng-click="ctrl.drawPath(item)">location_on</i>
+        <i class="material-icons" ng-click="ctrl.clearPath(item)">location_off</i>
+      </div>
       </div>
     </md-list-item>
   </md-list>

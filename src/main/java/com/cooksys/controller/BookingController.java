@@ -31,7 +31,7 @@ public class BookingController {
 		
 	//POST /booking
 	@RequestMapping(method = RequestMethod.POST)
-	public GetBooking create(@RequestBody Booking booking) {
+	public Booking create(@RequestBody Booking booking) {
 		return bookingService.create(booking);
 	}
 		

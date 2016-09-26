@@ -1,7 +1,8 @@
+
 export default
 /* @ngInject */
 class AppController {
-	constructor ($log, AppService, $scope, $timeout, $location, $state) {
+	constructor ($log, AppService, $scope, $timeout, $location, $state, $rootScope) {
   $log.debug('AppController instantiated!')
 
   this.loggedIn = AppService.loggedIn
@@ -27,7 +28,7 @@ class AppController {
     })
     $timeout(function () {
       $scope.reload()
-    }, 5000)
+    }, 50000)
   }
   $scope.reload()
 
@@ -36,10 +37,24 @@ class AppController {
     $scope.newBooking.flights = flights
     console.dir($scope.newBooking)
     AppService.addBooking($scope.newBooking).then((result) => {
-      console.dir($scope.bookings)
+      console.dir(result.data)
       // $scope.bookings.push(result.data)
     })
   }
+
+  this.drawPath = function (item) {
+    let color = '#'+Math.floor(Math.random()*16777215).toString(16)
+    $scope.$broadcast('drawPathEvent', {
+			origin: item.origin,
+			destination: item.destination,
+			color: color
+		})
+  }
+
+
+	this.clearPath = function (item) {
+		$scope.$broadcast('clearPathEvent', item)
+	}
 
   this.getProfile = function () {
     console.dir(this.user)
@@ -67,7 +82,7 @@ class AppController {
   }
 
   function loadAll () {
-    var allCities = 'MEMPHIS, KNOXVILLE, CHATTANOOGA, NASHVILLE'
+    var allCities = 'Memphis, Knoxville, Chattanooga, Nashville'
 
     return allCities.split(/, +/g).map(function (city) {
       return {
