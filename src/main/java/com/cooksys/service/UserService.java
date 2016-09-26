@@ -1,10 +1,12 @@
 package com.cooksys.service;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cooksys.entity.Booking;
 import com.cooksys.entity.User;
 import com.cooksys.model.GetAllUsers;
 import com.cooksys.model.GetUser;
@@ -59,6 +61,11 @@ public class UserService{
 	
 	public GetUser auth(User userToAuth) {
 		return GetUser.read(userRepo.findByUsername(userToAuth.getUsername()));
+	}
+
+	//GET /user/{id}/bookings
+	public Set<Booking> readBookings(long id) {
+		return userRepo.findOne(id).getBookings();
 	}
 	
 }

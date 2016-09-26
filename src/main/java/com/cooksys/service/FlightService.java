@@ -18,7 +18,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.cooksys.component.FlightGenerator;
+import com.cooksys.entity.Booking;
 import com.cooksys.entity.Flight;
+import com.cooksys.entity.User;
 import com.cooksys.pojo.Cities;
 import com.cooksys.repository.FlightRepository;
 
@@ -73,14 +75,14 @@ public class FlightService {
 			flightMap.put(Graphs.addEdge(airport, origin, destination, weight), newFlight);
 		}
 		
-		for(DefaultWeightedEdge e : airport.edgeSet()){
-
-             System.out.println(airport.getEdgeSource(e) + " --> " + airport.getEdgeTarget(e) + ".    flight time: " + airport.getEdgeWeight(e));
-         }
+//		for(DefaultWeightedEdge e : airport.edgeSet()){
+//
+//             System.out.println(airport.getEdgeSource(e) + " --> " + airport.getEdgeTarget(e) + ".    flight time: " + airport.getEdgeWeight(e));
+//         }
 		return airport;
     }
 	
-	public Set<ArrayList<Flight>> getItineraries(String departure, String destination)
+	public Set<Booking> getItineraries(String departure, String destination)
     {
 			Graph<String, DefaultWeightedEdge> a = this.createFlightGraph();
 			
@@ -88,7 +90,7 @@ public class FlightService {
 			
 			List<GraphPath<String, DefaultWeightedEdge>> allPaths = all.getAllPaths(departure, destination, true, null);
 			
-			Set<ArrayList<Flight>> itineraries = new HashSet<ArrayList<Flight>>();
+			Set<Booking> itineraries = new HashSet<Booking>();
 			
 			for(GraphPath<String, DefaultWeightedEdge> path : allPaths){
 				
@@ -113,15 +115,31 @@ public class FlightService {
 
 				}
 				if(!allFlights.isEmpty()){
-					ArrayList<Flight> newAllFlights = new ArrayList<Flight>();
-
-					for(int i = 0; i < allFlights.size(); i++){
-						newAllFlights.add(allFlights.get(i));
+					ArrayList<Flight> newAllFlights = new ArrayList<Flight>(); 	//new Booking booking
+					
+					Set<Flight> newFlightSet = new HashSet<Flight>();
+					Booking booking = new Booking();
+					long fightTime = 0;
+					long layover = 0;
+					long temp = allFlights.get(0).getOffset();
+					for(int i = 0; i < allFlights.size(); i++){ 				
+						Flight currentFlight = allFlights.get(i);
+																				
+						fightTime += currentFlight.getFlightTime();
+						
+						layover += currentFlight.getOffset() - temp;
+						temp = currentFlight.getFlightTime() + currentFlight.getOffset();
+						
+						newFlightSet.add(currentFlight);
 					}
 					
-					itineraries.add(newAllFlights);
-
-					System.out.println(newAllFlights.toString());
+					booking.setFlights(newFlightSet);
+					booking.setFlightTime(fightTime);
+					booking.setLayover(layover);
+					
+					itineraries.add(booking);								//add booking to itineraries
+//					System.out.println(booking.getFlights().toString());
+//					System.out.println(newAllFlights.toString());
 				}
 			}
 			

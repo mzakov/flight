@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cooksys.entity.Booking;
 import com.cooksys.entity.Flight;
 import com.cooksys.service.FlightService;
 import com.cooksys.service.LocationService;
@@ -42,7 +43,7 @@ public class FlightsController {
 	
 	//GET /flights/itin
 	@RequestMapping(path = "/itin/{origin}/{destination}", method = RequestMethod.GET)
-	public Set<ArrayList<Flight>> getItineraries(@PathVariable String origin, @PathVariable String destination )
+	public Set<Booking> getItineraries(@PathVariable String origin, @PathVariable String destination )
 	{
 		return flightService.getItineraries(origin, destination);
 	}

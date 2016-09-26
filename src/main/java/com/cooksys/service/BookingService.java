@@ -39,6 +39,9 @@ public class BookingService{
 	//POST /booking
 
 	public Booking create(Booking booking) {
+//		User user = userRepo.findOne(booking.getUser().getId());
+//		booking.setUser(user);
+		
 		Booking savedB = bookingRepo.save(booking);
 		
 //		long bId = savedB.getId(); 

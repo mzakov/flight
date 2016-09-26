@@ -6,6 +6,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = {"username"}))
 public class User {
@@ -34,11 +36,10 @@ public class User {
 	@Column(name="password", updatable = false, nullable=false)
 	private String password;
 	
-	@Column
-	
+	@JsonIgnore
 	@OneToMany(mappedBy = "user", fetch=FetchType.LAZY)
 	private Set<Booking> bookings;
-	
+
 	public Date getCreated() {
 		return created;
 	}
@@ -78,5 +79,6 @@ public class User {
 	public void setBookings(Set<Booking> bookings) {
 		this.bookings = bookings;
 	}
+	
 
 }

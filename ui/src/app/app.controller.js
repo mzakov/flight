@@ -8,7 +8,9 @@ class AppController {
   this.loggedIn = AppService.loggedIn
   this.user = AppService.user
   this.users = []
+	this.showProfile = false
   $scope.flights = []
+
   $scope.routes = []
   $scope.newBooking = {
     user: {},
@@ -32,11 +34,10 @@ class AppController {
   }
   $scope.reload()
 
-  this.book = function (flights) {
-    $scope.newBooking.user = this.user
-    $scope.newBooking.flights = flights
-    console.dir($scope.newBooking)
-    AppService.addBooking($scope.newBooking).then((result) => {
+  this.book = function (booking) {
+    booking.user = this.user
+    console.dir(booking)
+    AppService.addBooking(booking).then((result) => {
       console.dir(result.data)
       // $scope.bookings.push(result.data)
     })
@@ -57,13 +58,27 @@ class AppController {
 	}
 
   this.getProfile = function () {
-    console.dir(this.user)
-  }
+
+
+		AppService.getBookings(ctrl.user.id).then((result) => {
+				AppService.bookings = result.data
+				$scope.$broadcast('updateBookings', result.data)
+				console.dir(AppService.bookings)
+			}).then(() => {
+					this.showProfile = true
+			})
+
+	}
+
+
+	this.getHome = function () {
+		this.showProfile = false
+	}
 
   this.getRoutes = function () {
     AppService.getRoutes(ctrl.selectedOrigin, ctrl.selectedDestination).then((result) => {
       $scope.routes = result.data
-      console.dir(result.data)
+      // console.dir(result.data)
     })
 		$timeout(function () {
 			ctrl.getRoutes(ctrl.selectedOrigin, ctrl.selectedDestination)

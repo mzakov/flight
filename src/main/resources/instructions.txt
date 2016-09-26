@@ -33,29 +33,29 @@ Execute the contents of location.sql to populate the locations table
 
 [PROJECT REQUIREMENTS]
 
-Create a website where any visitor can see the up to date list of available flights
+OK Create a website where any visitor can see the up to date list of available flights
 
-The list of available flights must updated in real time
+OK The list of available flights must updated in real time
 
-Allow a user to create a profile and log in to that profile
+80% Allow a user to create a profile and log in to that profile
 
-If a user logs in, allow them to search for flights between an origin and destination city
+OK If a user logs in, allow them to search for flights between an origin and destination city
 
-The results of this search must be updated in real time
+OK The results of this search must be updated in real time
 
-The app must find a flight or series of flights (in the case of layovers) that will get the user from the origin to the destination the fastest
+50% The app must find a flight or series of flights (in the case of layovers) that will get the user from the origin to the destination the fastest
 
-A layover of zero is not valid
+OK A layover of zero is not valid
 
-If there is no possible route, the user must be made aware that they cannot travel to that destination from their origin at this time
+-- If there is no possible route, the user must be made aware that they cannot travel to that destination from their origin at this time
 
-Once an itinerary is presented to the user, the user must be given the option to book the itinerary
+OK Once an itinerary is presented to the user, the user must be given the option to book the itinerary
 
-The user must have a page that displays all of their previously booked itineraries, the total flight time, and the total layover time
+-- The user must have a page that displays all of their previously booked itineraries, the total flight time, and the total layover time
 
-The user must be given the option to view their booked itinerary on a map as provided by the MapController
+50% The user must be given the option to view their booked itinerary on a map as provided by the MapController
 
-In the scenario of a multi-flight itinerary, lines must be displayed with a different color for each branch of the journey
+80% In the scenario of a multi-flight itinerary, lines must be displayed with a different color for each branch of the journey
 
 Information must be provided on the map template page that shows the user the order the line segments occur in, the flight time for that segment, and the layover time in each particular city
 

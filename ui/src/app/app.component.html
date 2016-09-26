@@ -2,13 +2,21 @@
   <md-toolbar>
     <div layout="row" layout-align="center center" style="padding-top:20px;">
       <md-button ng-show="ctrl.loggedIn" class="md-raised md-primary" ng-click ="ctrl.getProfile()">Profile</md-button>
+      <md-button ng-show="ctrl.showProfile" class="md-raised md-primary" ng-click ="ctrl.getHome()">Home</md-button>
       <md-button class="md-raised md-primary" ng-hide="ctrl.loggedIn" ng-href= "#/login">LogIn / Register</md-button>
       <md-button ng-show="ctrl.loggedIn" class="md-raised md-primary" ng-click ="ctrl.logout()">LogOut</md-button>
     </div>
   </md-toolbar>
+
   <div>
     <flight-map></flight-map>
   </div>
+
+  <div ng-show="ctrl.showProfile">
+    <app-user></app-user>
+  </div>
+
+  <div ng-hide="ctrl.showProfile">
 
   <md-content class="md-padding"  ng-show="ctrl.loggedIn">
       <form ng-submit="$event.preventDefault()" name="searchForm">
@@ -58,6 +66,8 @@
         <md-button ng-disabled="searchForm.$invalid" class="md-raised" ng-click="ctrl.getRoutes()">Search</md-button>
       </form>
     </md-content>
+
+
     <div class="routes" ng-show=true>
     <md-list  ng-show="ctrl.loggedIn" class="md-dense" flex>
       <md-subheader class="md-no-sticky">Routes</md-subheader>
@@ -70,7 +80,7 @@
         <md-button ng-click="ctrl.book(items)">Book</mdd-button>
         </div>
         </div>
-        <md-list-item class="md-3-line" ng-repeat="item in items">
+        <md-list-item class="md-3-line" ng-repeat="item in items.flights">
           <div class="md-list-item-text" layout="column" layout-align="start">
             <h3>From {{ item.origin }} to {{ item.destination }}</h3>
             <h4>Takes off at: {{ item.offset }} and lands at: {{ item.flightTime + item.offset }}</h4>
@@ -101,4 +111,7 @@
     </md-list-item>
   </md-list>
 </div>
+
+</div>
+
 </div>

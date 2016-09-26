@@ -35,9 +35,16 @@ public class Booking {
 	@JoinColumn(name="user_id")
 	private User user;
 	
-	@OneToMany(mappedBy = "booking", fetch=FetchType.LAZY)
+	
+	@OneToMany(mappedBy = "booking", fetch=FetchType.EAGER)
 	private Set<Flight> flights;
 	
+	@Column(name="layover")
+	private long layover;
+	
+	@Column(name="flightTime")
+	private long flightTime;
+
 	public Date getCreated() {
 		return created;
 	}
@@ -69,5 +76,22 @@ public class Booking {
 	public void setFlights(Set<Flight> flights) {
 		this.flights = flights;
 	}
+
+	public long getLayover() {
+		return layover;
+	}
+
+	public void setLayover(long layover) {
+		this.layover = layover;
+	}
+
+	public long getFlightTime() {
+		return flightTime;
+	}
+
+	public void setFlightTime(long flightTime) {
+		this.flightTime = flightTime;
+	}
+	
 
 }
