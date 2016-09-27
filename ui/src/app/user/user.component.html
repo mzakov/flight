@@ -1,36 +1,50 @@
 <div class="bigbox"ng-cloak layout="column" flex>
-
+  <md-card >
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline" style="font-size:32px;">{{ctrl.user.username}}</span>
+            <span class="md-subhead">Welcome back!</span>
+          </md-card-title-text>
+          <md-card-title-media>
+            <div class="md-media-sm card-media">
+              <i class="material-icons " style="font-size:80px;color:blue;">account_box</i>
+            </div>
+          </md-card-title-media>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="end center">
+        </md-card-actions>
+      </md-card>
   <div class="routes" ng-show=true>
-  <md-list  ng-show="ctrl.loggedIn" class="md-dense" flex>
-    <md-subheader class="md-no-sticky">Bookings</md-subheader>
-    <md-list-item class="md-3-line" layout="row" layout-align="center center" ng-repeat="items in bookings">
-      <div layout="row" layout-align="center center" >
-      <div layout="column" layout-align="center center">
-        <div layout-align="center center">
-      <i class="material-icons" >location_on</i>
-      <i class="material-icons">location_off</i>
-        </div>
-      <div class="md-list-item-text" layout="column" layout-align="start">
-        <p>Total Flight time: {{items.flightTime}}</p>
-        <p>Total Layover: {{items.layover}}</p>
-        <p>Total Travel time: {{items.layover + items.flightTime}}</p>
-      </div>
-      </div>
-      <md-list-item class="md-3-line" ng-repeat="item in items.flights">
-        <div class="md-list-item-text" layout="column" layout-align="start">
-          <h3>From {{ item.origin }} to {{ item.destination }}</h3>
-          <h4>Takes off at: {{ item.offset }} and lands at: {{ item.flightTime + item.offset }}</h4>
-          <p>Flight time: {{ item.flightTime }}</p>
-          <div layout="row">
-          <i class="material-icons" ng-click="ctrl.drawPath(item)">location_on</i>
-          <i class="material-icons" ng-click="ctrl.clearPath(item)">location_off</i>
-        </div>
-        </div>
+    <md-list  ng-show="ctrl.loggedIn" class="md-dense" layout="column" layout-align="start start" flex>
+      <md-subheader class="md-no-sticky">Bookings</md-subheader>
+
+      <md-list-item layout-padding class="md-3-line" layout="row" layout-align="center center" ng-repeat="items in bookings | orderBy: '-created'">
+        <md-whiteframe class="md-whiteframe-1dp" layout="row" layout-align="center center" flex>
+          <div layout="column" layout-align="center center">
+            <div layout-align="center center">
+              <i class="material-icons" ng-click="ctrl.drawAllPaths(items)" >location_on</i>
+              <i class="material-icons" ng-click="ctrl.clearAllPaths(items)">location_off</i>
+            </div>
+            <div class="md-list-item-text" layout="column" layout-align="start">
+              <p>Total Flight time: {{items.flightTime}}</p>
+              <p>Total Layover: {{items.layover}}</p>
+              <p>Total Travel time: {{items.layover + items.flightTime}}</p>
+            </div>
+          </div>
+          <md-list-item class="md-3-line" ng-repeat="item in items.flights"  layout="row" layout-align="start start">
+            <div class="md-list-item-text" layout="column" layout-align="start center">
+              <h3>From {{ item.origin }} to {{ item.destination }}</h3>
+              <h4>Takes off at: {{ item.offset }} and lands at: {{ item.flightTime + item.offset }}</h4>
+              <p>Flight time: {{ item.flightTime }}</p>
+              <div layout="row" layout-align="center center">
+                <i class="material-icons" ng-click="ctrl.drawPath(item)">location_on</i>
+                <i class="material-icons" ng-click="ctrl.clearPath(item)">location_off</i>
+              </div>
+            </div>
+          </md-list-item>
+        </md-whiteframe>
       </md-list-item>
-    </div>
-    </md-list-item>
-  </md-list>
-  </div>
 
-
+    </md-list>
   </div>
+</div>

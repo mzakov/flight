@@ -14,8 +14,8 @@ export default
       'ngMaterial',
       'ngMessages',
       'ui.router',
-      'login',
 
+      login,
       flightMap,
       user
     ])

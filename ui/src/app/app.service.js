@@ -6,14 +6,10 @@ export default
      this.apiUrl = apiUrl
      this.user = {}
      this.loggedIn = false
-     this.drawPaths = []
      this.bookings = []
    }
-addPath (item) { this.drawPaths.push([item.origin, item.destination, '#000099']) }
 
 getBookings (user_id) { return this.$http.get(this.apiUrl + '/users/' + user_id + '/bookings') }
-
-getAllUsers () { return this.$http.get(this.apiUrl + '/users/') }
 
 getAllFlights () { return this.$http.get(this.apiUrl + '/flights/') }
 

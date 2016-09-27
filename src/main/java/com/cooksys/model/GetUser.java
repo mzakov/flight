@@ -1,8 +1,6 @@
 package com.cooksys.model;
 
 import java.util.Date;
-import java.util.List;
-
 import com.cooksys.entity.User;
 
 public class GetUser {
@@ -15,20 +13,11 @@ public class GetUser {
 	
 	private String password;
 	
-//	private List<GetAllBookings> bookings;
-//	
-//	private List<GetAllUsers> followers;
-//	
-//	private List<GetAllUsers> followees;
-	
 	public GetUser(User user) {
 		this.id = user.getId();
 		this.created = user.getCreated();
 		this.username = user.getUsername();
 		this.password = user.getPassword();
-//		this.bookings = GetAllBookings.index(user.getBooings());
-//		this.followers = GetAllUsers.index(user.getFollowers());
-//		this.followees = GetAllUsers.index(user.getFollowees());
 	}
 
 	public static GetUser read(User user){

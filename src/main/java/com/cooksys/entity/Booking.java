@@ -1,17 +1,13 @@
 package com.cooksys.entity;
 
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Set;
-
+import java.util.List;
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "bookings")
-public class Booking {
+public class Booking implements Comparable<Booking>{
 
 	Date created;
 	
@@ -37,7 +33,7 @@ public class Booking {
 	
 	
 	@OneToMany(mappedBy = "booking", fetch=FetchType.EAGER)
-	private Set<Flight> flights;
+	private List<Flight> flights;
 	
 	@Column(name="layover")
 	private long layover;
@@ -69,11 +65,11 @@ public class Booking {
 		this.user = user;
 	}
 
-	public Set<Flight> getFlights() {
+	public List<Flight> getFlights() {
 		return flights;
 	}
 
-	public void setFlights(Set<Flight> flights) {
+	public void setFlights(List<Flight> flights) {
 		this.flights = flights;
 	}
 
@@ -91,6 +87,14 @@ public class Booking {
 
 	public void setFlightTime(long flightTime) {
 		this.flightTime = flightTime;
+	}
+
+	@Override
+	public int compareTo(Booking compareBooking) {
+		long compareFlightTime = ((Booking) compareBooking).getFlightTime();
+		
+		
+		return (int) (this.flightTime - compareFlightTime);
 	}
 	
 

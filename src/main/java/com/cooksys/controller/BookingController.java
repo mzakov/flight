@@ -1,13 +1,10 @@
 package com.cooksys.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import com.cooksys.entity.Booking;
 import com.cooksys.model.GetAllBookings;
-import com.cooksys.model.GetBooking;
 import com.cooksys.service.BookingService;
 
 @RestController

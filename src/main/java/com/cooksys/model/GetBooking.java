@@ -1,9 +1,7 @@
 package com.cooksys.model;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Set;
-
+import java.util.List;
 import com.cooksys.entity.Booking;
 import com.cooksys.entity.Flight;
 
@@ -15,7 +13,7 @@ public class GetBooking {
 	
 	private String username;
 	
-	private Set<Flight> flights;
+	private List<Flight> flights;
 	
 	public GetBooking(Booking booking) {
 		super();
@@ -54,11 +52,11 @@ public class GetBooking {
 		this.username = username;
 	}
 
-	public Set<Flight> getFlights() {
+	public List<Flight> getFlights() {
 		return flights;
 	}
 
-	public void setFlights(Set<Flight> flights) {
+	public void setFlights(List<Flight> flights) {
 		this.flights = flights;
 	}
 	

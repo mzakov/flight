@@ -1,117 +1,114 @@
 <div class="bigbox"ng-cloak layout="column" flex>
   <md-toolbar>
     <div layout="row" layout-align="center center" style="padding-top:20px;">
-      <md-button ng-show="ctrl.loggedIn" class="md-raised md-primary" ng-click ="ctrl.getProfile()">Profile</md-button>
+      <md-button ng-hide="!ctrl.loggedIn || ctrl.showProfile" class="md-raised md-primary" ng-click ="ctrl.getProfile()">Profile</md-button>
       <md-button ng-show="ctrl.showProfile" class="md-raised md-primary" ng-click ="ctrl.getHome()">Home</md-button>
-      <md-button class="md-raised md-primary" ng-hide="ctrl.loggedIn" ng-href= "#/login">LogIn / Register</md-button>
+      <md-button ng-hide="ctrl.loggedIn" class="md-raised md-primary"  ng-href= "#/login">LogIn / Register</md-button>
       <md-button ng-show="ctrl.loggedIn" class="md-raised md-primary" ng-click ="ctrl.logout()">LogOut</md-button>
     </div>
   </md-toolbar>
-
   <div>
     <flight-map></flight-map>
   </div>
-
   <div ng-show="ctrl.showProfile">
     <app-user></app-user>
   </div>
-
   <div ng-hide="ctrl.showProfile">
-
-  <md-content class="md-padding"  ng-show="ctrl.loggedIn">
+    <md-content class="md-padding"  ng-show="ctrl.loggedIn">
       <form ng-submit="$event.preventDefault()" name="searchForm">
         <h3>Search Flights</h3>
         <div layout-gt-sm="row">
-          <div>
+          <div flex>
             <i style="display:inline-block;" class="material-icons">flight_takeoff</i>
-          </div>
-          <div>
-          <md-autocomplete flex="" required="" md-input-name="autocompleteField"
+            <md-autocomplete flex="" required="" md-input-name="autocompleteField"
               md-input-minlength="2" md-input-maxlength="18" md-no-cache="ctrl.noCache"
               md-selected-item="ctrl.selectedOrigin" md-search-text="ctrl.searchTextOrigin"
               md-items="item in ctrl.querySearch(ctrl.searchTextOrigin)" md-item-text="item.display"
               md-require-match md-floating-label="From: e.g. Memphis">
-            <md-item-template>
-              <span md-highlight-text="ctrl.searchTextOrigin">{{item.display}}</span>
-            </md-item-template>
-            <div ng-messages="searchForm.autocompleteField.$error" ng-if="searchForm.autocompleteField.$touched">
-              <div ng-message="required">Please enter the city of departure.</div>
-              <div ng-message="md-require-match">Please select an existing city.</div>
-              <div ng-message="minlength">Your entry is not long enough.</div>
-              <div ng-message="maxlength">Your entry is too long.</div>
-            </div>
-          </md-autocomplete>
+              <md-item-template>
+                <span md-highlight-text="ctrl.searchTextOrigin">{{item.display}}</span>
+              </md-item-template>
+              <div ng-messages="searchForm.autocompleteField.$error" ng-if="searchForm.autocompleteField.$touched">
+                <div ng-message="required">Please enter the city of departure.</div>
+                <div ng-message="md-require-match">Please select an existing city.</div>
+                <div ng-message="minlength">Your entry is not long enough.</div>
+                <div ng-message="maxlength">Your entry is too long.</div>
+              </div>
+            </md-autocomplete>
           </div>
-          <div>
+          <div flex>
             <i style="display:inline-block;" class="material-icons">flight_landing</i>
-          </div>
-          <div>
-          <md-autocomplete flex="" required="" md-input-name="autocompleteField"
+            <md-autocomplete flex="" required="" md-input-name="autocompleteField"
               md-input-minlength="2" md-input-maxlength="18" md-no-cache="ctrl.noCache"
               md-selected-item="ctrl.selectedDestination" md-search-text="ctrl.searchTextDestination"
               md-items="item in ctrl.querySearch(ctrl.searchTextDestination)" md-item-text="item.display"
               md-require-match md-floating-label="To: e.g. Knoxville">
-            <md-item-template>
-              <span md-highlight-text="ctrl.searchTextDestination">{{item.display}}</span>
-            </md-item-template>
-            <div ng-messages="searchForm.autocompleteField.$error" ng-if="searchForm.autocompleteField.$touched">
-              <div ng-message="required">Please enter the city of arrival.</div>
-              <div ng-message="md-require-match">Please select an existing city.</div>
-              <div ng-message="minlength">Your entry is not long enough.</div>
-              <div ng-message="maxlength">Your entry is too long.</div>
-            </div>
-          </md-autocomplete>
+              <md-item-template>
+                <span md-highlight-text="ctrl.searchTextDestination">{{item.display}}</span>
+              </md-item-template>
+              <div ng-messages="searchForm.autocompleteField.$error" ng-if="searchForm.autocompleteField.$touched">
+                <div ng-message="required">Please enter the city of arrival.</div>
+                <div ng-message="md-require-match">Please select an existing city.</div>
+                <div ng-message="minlength">Your entry is not long enough.</div>
+                <div ng-message="maxlength">Your entry is too long.</div>
+              </div>
+            </md-autocomplete>
           </div>
         </div>
         <md-button ng-disabled="searchForm.$invalid" class="md-raised" ng-click="ctrl.getRoutes()">Search</md-button>
       </form>
     </md-content>
-
-
     <div class="routes" ng-show=true>
-    <md-list  ng-show="ctrl.loggedIn" class="md-dense" flex>
+     <md-list  ng-show="ctrl.loggedIn" class="md-dense" layout="column" layout-align="start start" flex>
       <md-subheader class="md-no-sticky">Routes</md-subheader>
-      <md-list-item class="md-3-line" layout="row" layout-align="center center" ng-repeat="items in routes">
-        <div layout="column" layout-align="center center">
+      <h3 layout="row" layout-align="center center" ng-hide="routes.length">There are no flights for the above route at the moment.</h3>
+        <md-list-item layout-padding class="md-3-line" layout="row" layout-align="center center" ng-repeat="items in routes">
+        <md-whiteframe class="md-whiteframe-1dp" layout="row" layout-align="center center" flex>
+         <div layout="column" layout-align="center center">
           <div>
-        <i class="material-icons">card_travel</i>
+           <i class="material-icons">card_travel</i>
           </div>
           <div>
-        <md-button ng-click="ctrl.book(items)">Book</mdd-button>
-        </div>
-        </div>
-        <md-list-item class="md-3-line" ng-repeat="item in items.flights">
+           <md-button ng-click="ctrl.book(items)">Book</mdd-button>
+          </div>
+         </div>
+         <md-list-item class="md-3-line" ng-repeat="item in items.flights">
           <div class="md-list-item-text" layout="column" layout-align="start">
             <h3>From {{ item.origin }} to {{ item.destination }}</h3>
             <h4>Takes off at: {{ item.offset }} and lands at: {{ item.flightTime + item.offset }}</h4>
             <p>Flight time: {{ item.flightTime }}</p>
             <div layout="row">
-            <i class="material-icons" ng-click="ctrl.drawPath(item)">location_on</i>
-            <i class="material-icons" ng-click="ctrl.clearPath(item)">location_off</i>
+             <i class="material-icons" ng-click="ctrl.drawPath(item)">location_on</i>
+             <i class="material-icons" ng-click="ctrl.clearPath(item)">location_off</i>
+            </div>
           </div>
-          </div>
+         </md-list-item>
+       </md-whiteframe>
         </md-list-item>
-      </md-list-item>
-    </md-list>
+     </md-list>
     </div>
-  <div class="flights">
-  <md-list class="md-dense" flex>
-    <md-subheader class="md-no-sticky">Flights</md-subheader>
-    <md-list-item class="md-3-line" ng-repeat="item in flights">
-      <i class="material-icons">airplanemode_active</i>
-      <div  class="md-list-item-text" layout="column">
-        <h3>From {{ item.origin }} to {{ item.destination }}</h3>
-        <h4>Takes off at: {{ item.offset }} and lands at: {{ item.flightTime + item.offset }}</h4>
-        <p>Flight time: {{ item.flightTime }}</p>
-        <div layout="row">
-        <i class="material-icons" ng-click="ctrl.drawPath(item)">location_on</i>
-        <i class="material-icons" ng-click="ctrl.clearPath(item)">location_off</i>
-      </div>
-      </div>
-    </md-list-item>
-  </md-list>
-</div>
-
-</div>
-
+    <div class="flights">
+     <md-list class="md-dense" flex>
+      <md-subheader class="md-no-sticky">Flights</md-subheader>
+      <md-list-item layout-padding class="md-3-line" ng-repeat="item in flights">
+        <md-whiteframe class="md-whiteframe-1dp" layout="row" layout-align="center center" flex>
+         <div  class="md-list-item-text" layout="row" layout-align="start center">
+          <div layout-padding>
+            <i class="material-icons">airplanemode_active</i>
+          </div>
+        <div>
+          <h3>From {{ item.origin }} to {{ item.destination }}</h3>
+          <h4>Takes off at: {{ item.offset }} and lands at: {{ item.flightTime + item.offset }}</h4>
+          <p>Flight time: {{ item.flightTime }}</p>
+          <div layout="row" layout-align="center center">
+           <i class="material-icons" ng-click="ctrl.drawPath(item)">location_on</i>
+           <i class="material-icons" ng-click="ctrl.clearPath(item)">location_off</i>
+          </div>
+          </div>
+         </div>
+       </md-whiteframe>
+      </md-list-item>
+     </md-list>
+    </div>
+  </div>
 </div>

@@ -11,7 +11,7 @@ class LoginController {
     LoginService.register(this.user).then((result) => {
       if (result.data.name !== null) {
         $location.url('/home')
-				this.user = result.data
+        this.user = result.data
         AppService.user = result.data
         AppService.loggedIn = true
         $rootScope.message = 'Authentication successful!'

@@ -101,6 +101,4 @@ public class Flight{
 		this.booking = booking;
 	}
 
-
-	
 }

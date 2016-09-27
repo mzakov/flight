@@ -25,32 +25,27 @@ public class UserService{
 	}
 
 	//GET /user/allUsers
-	
 	public List<GetAllUsers> index() {
 		return GetAllUsers.index(userRepo.findAll());
 	}
 
 	//POST /user/
-	
 	public User create(User user) {
 		return userRepo.saveAndFlush(user);
 	}
 
 	//GET /user/{id}
-	
 	public GetUser read(long id) {
 		return GetUser.read(userRepo.findOne(id));
 	}
 
 	// PATCH /user/{id}
-	
 	public User update(long id, User userToUpdate) {
 		userToUpdate.setId(id);
 		return userRepo.saveAndFlush(userToUpdate);
 	}
 
 	//DELETE /user/{id}
-	
 	public User delete(long id) {
 		User result = userRepo.findOne(id);
 		userRepo.delete(id);
@@ -58,7 +53,6 @@ public class UserService{
 	}
 
 	//POST /user/login
-	
 	public GetUser auth(User userToAuth) {
 		return GetUser.read(userRepo.findByUsername(userToAuth.getUsername()));
 	}

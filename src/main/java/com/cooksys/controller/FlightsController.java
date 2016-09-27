@@ -1,11 +1,6 @@
 package com.cooksys.controller;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-
-import org.jgrapht.Graphs;
-import org.jgrapht.graph.SimpleDirectedWeightedGraph;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,25 +20,22 @@ public class FlightsController {
 	
 	private final FlightService flightService;
 	
-	private final LocationService locationService;
-	
 	@Autowired
-	public FlightsController (FlightService flightService, LocationService locationService) {
+	public FlightsController (FlightService flightService) {
 		super();
 		this.flightService = flightService;
-		this.locationService = locationService;
 	}
 	
 	//GET /flights/
 	@RequestMapping(method = RequestMethod.GET)
-	public ArrayList<Flight> getFlightList()
+	public List<Flight> getFlightList()
 	{		
 		return flightService.getDailyFlightList();
 	}
 	
 	//GET /flights/itin
 	@RequestMapping(path = "/itin/{origin}/{destination}", method = RequestMethod.GET)
-	public Set<Booking> getItineraries(@PathVariable String origin, @PathVariable String destination )
+	public List<Booking> getItineraries(@PathVariable String origin, @PathVariable String destination )
 	{
 		return flightService.getItineraries(origin, destination);
 	}
