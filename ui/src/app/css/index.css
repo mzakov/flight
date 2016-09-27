@@ -10,3 +10,9 @@
 .flights {
   max-height: 60px;
 }
+
+body {
+    -moz-transform: scale(0.75, 0.75); /* Moz-browsers */
+    zoom: 0.75; /* Other non-webkit browsers */
+    zoom: 75%; /* Webkit browsers */
+}

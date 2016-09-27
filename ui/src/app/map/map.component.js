@@ -7,9 +7,15 @@ class MapController {
   markers = []
   paths = []
 
-  constructor ($map, locations, $rootScope, $scope) {
+  constructor ($map, locations, $rootScope, $scope, $state, AppService, $timeout) {
     let ctrl = this
     this.$map = $map
+    this.loggedIn = AppService.loggedIn
+    ctrl.map = $scope.map
+
+    ctrl.updateMap = function () {
+    google.maps.event.trigger($scope.map, 'resize')
+    }
 
     const { memphis, nashville, knoxville } = locations
     let markers = []
@@ -18,7 +24,6 @@ class MapController {
 
     let paths = []
 
-    paths = []
     $scope.$on('clearAllPaths', function (event) {
       ctrl.paths = []
     })
@@ -79,7 +84,6 @@ class MapController {
       geodesic: true
     })
   }
-
 }
 
 export default {

@@ -17,6 +17,14 @@ class AppController {
     flights: []
   }
 
+  this.cities = AppService.getCities().then((result) => {
+    return result.data
+    .map((location) => { return location.city })
+    .map((city) => {
+      return city
+    })
+  })
+
   this.logout = function () {
     this.user = {}
     AppService.user = {}
@@ -92,11 +100,6 @@ class AppController {
   this.searchTextDestination = null
   this.querySearch = querySearch
 
-  function querySearch (query) {
-    var results = query ? this.cities.filter(createFilterFor(query)) : this.cities
-    return results
-  }
-
   function loadAll () {
     var allCities = 'Memphis, Knoxville, Chattanooga, Nashville'
     return allCities.split(/, +/g).map(function (city) {
@@ -105,6 +108,11 @@ class AppController {
         display: city
       }
     })
+  }
+
+  function querySearch (query) {
+    var results = query ? this.cities.filter(createFilterFor(query)) : this.cities
+    return results
   }
 
   function createFilterFor (query) {

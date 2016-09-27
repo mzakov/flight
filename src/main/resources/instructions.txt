@@ -37,7 +37,7 @@ OK Create a website where any visitor can see the up to date list of available f
 
 OK The list of available flights must updated in real time
 
-80% Allow a user to create a profile and log in to that profile
+99% Allow a user to create a profile and log in to that profile
 
 OK If a user logs in, allow them to search for flights between an origin and destination city
 
@@ -51,11 +51,11 @@ OK If there is no possible route, the user must be made aware that they cannot t
 
 OK Once an itinerary is presented to the user, the user must be given the option to book the itinerary
 
-90% The user must have a page that displays all of their previously booked itineraries, the total flight time, and the total layover time
+OK The user must have a page that displays all of their previously booked itineraries, the total flight time, and the total layover time
 
-80% The user must be given the option to view their booked itinerary on a map as provided by the MapController
+OK The user must be given the option to view their booked itinerary on a map as provided by the MapController
 
-80% In the scenario of a multi-flight itinerary, lines must be displayed with a different color for each branch of the journey
+OK In the scenario of a multi-flight itinerary, lines must be displayed with a different color for each branch of the journey
 
 -- Information must be provided on the map template page that shows the user the order the line segments occur in, the flight time for that segment, and the layover time in each particular city
 

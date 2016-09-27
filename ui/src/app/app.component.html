@@ -60,8 +60,8 @@
     </md-content>
     <div class="routes" ng-show=true>
      <md-list  ng-show="ctrl.loggedIn" class="md-dense" layout="column" layout-align="start start" flex>
-      <md-subheader class="md-no-sticky">Routes</md-subheader>
-      <h3 layout="row" layout-align="center center" ng-hide="routes.length">There are no flights for the above route at the moment.</h3>
+      <md-subheader class="md-no-sticky" >Routes</md-subheader>
+      <h3 layout-padding layout="row" layout-align="center center" ng-hide="routes.length" flex>There are no flights for the above route at the moment.</h3>
         <md-list-item layout-padding class="md-3-line" layout="row" layout-align="center center" ng-repeat="items in routes">
         <md-whiteframe class="md-whiteframe-1dp" layout="row" layout-align="center center" flex>
          <div layout="column" layout-align="center center">
@@ -72,12 +72,12 @@
            <md-button ng-click="ctrl.book(items)">Book</mdd-button>
           </div>
          </div>
-         <md-list-item class="md-3-line" ng-repeat="item in items.flights">
-          <div class="md-list-item-text" layout="column" layout-align="start">
+         <md-list-item class="md-3-line" ng-repeat="item in items.flights" layout="row" layout-align="start start" flex>
+          <div class="md-list-item-text" layout="column" layout-align="start center" flex>
             <h3>From {{ item.origin }} to {{ item.destination }}</h3>
             <h4>Takes off at: {{ item.offset }} and lands at: {{ item.flightTime + item.offset }}</h4>
             <p>Flight time: {{ item.flightTime }}</p>
-            <div layout="row">
+            <div layout="row" layout-align="center center" flex>
              <i class="material-icons" ng-click="ctrl.drawPath(item)">location_on</i>
              <i class="material-icons" ng-click="ctrl.clearPath(item)">location_off</i>
             </div>
