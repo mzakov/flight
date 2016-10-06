@@ -6,12 +6,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const devtool = 'source-map'
 
 const entry = {
+  hot: 'webpack/hot/dev-server',
   vendor: './src/vendor.js',
   main: ['babel-polyfill', './src/main.js']
 }
 
 const output = {
-  filename: '[name].js',
+  filename: '[name].js?[hash]',
   path: '../src/main/resources/static/'
 }
 
@@ -53,8 +54,14 @@ const plugins = [
   })
 ]
 
+const devServer = {
+	contentBase: './static',
+	stats: 'minimal'
+}
+
 module.exports = {
   devtool,
+  devServer,
   entry,
   output,
   resolve: {
